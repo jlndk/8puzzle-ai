@@ -1180,7 +1180,7 @@ class EightPuzzle {
   }
 
   async calculateMovesWithWorker() {
-    const worker = new Worker("/worker.d08b2c2a.js");
+    const worker = new Worker("worker.25c13205.js");
 
     worker.onmessage = ({
       data
@@ -1293,7 +1293,7 @@ class EightPuzzle {
 }
 
 exports.default = EightPuzzle;
-},{"./Grid":"aZlb","comlink":"zxCA","../lib/util":"V9Vx","../sketch":"jtWJ","./../ai/worker.ts":[["worker.d08b2c2a.js","Tudj"],"worker.d08b2c2a.js.map","Tudj"]}],"jtWJ":[function(require,module,exports) {
+},{"./Grid":"aZlb","comlink":"zxCA","../lib/util":"V9Vx","../sketch":"jtWJ","./../ai/worker.ts":[["worker.25c13205.js","Tudj"],"worker.25c13205.js.map","Tudj"]}],"jtWJ":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -1354,4 +1354,4 @@ function calculateMoves(solver, size, tiles, freeCell, desiredState) {
 exports.calculateMoves = calculateMoves;
 comlink_1.expose(calculateMoves);
 },{"comlink":"zxCA","../game/Grid":"aZlb","../sketch":"jtWJ"}]},{},["Tudj"], null)
-//# sourceMappingURL=/worker.d08b2c2a.js.map
+//# sourceMappingURL=worker.25c13205.js.map
