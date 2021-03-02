@@ -5,7 +5,7 @@
     "description": "An implementation of the 8-puzzle game and an AI for solving it",
     "scripts": {
         "dev": "parcel index.html",
-        "build": "parcel build index.html",
+        "build": "parcel build index.html --no-minify --out-dir docs",
         "format": "prettier --write ."
     },
     "homepage": "https://jlndk.github.io/8puzzle-ai",
