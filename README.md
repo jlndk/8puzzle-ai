@@ -32,3 +32,19 @@ p.setup = () => {
 ...
 ```
 It is also possible to change the size of the board if you feel like a 3x3 grid is too easy.
+
+### Reporting progress
+It is expected that all moves are computed up-front and returned as a list of moves.
+Since this can be rather slow, the game allows the AI to give progress reports while moves are being generated.
+This can be done by sending the `ai_progress` message to the main thread, of type `Status` as seen in `EightPuzzle`:
+Note this only works when the AI runs in a web worker thread, which is why it is advised to use the `isRunningAsWorker` utility function as a condition to send the update.
+```ts
+if(isRunningAsWorker()) {
+    self.postMessage({
+        cmd: 'ai_progress',
+        percent, // The current progress in percent between 0-100 (required)
+        memory, // The current memory usage, in bytes (optional)
+        status, // The current status message (optional)
+    } as Status);
+}
+```
