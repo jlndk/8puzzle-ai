@@ -1,0 +1,30 @@
+{
+    "name": "8puzzle-ai",
+    "private": true,
+    "version": "1.0.0",
+    "description": "An implementation of the 8-puzzle game and an AI for solving it",
+    "scripts": {
+        "dev": "parcel index.html",
+        "build": "parcel build index.html",
+        "format": "prettier --write ."
+    },
+    "homepage": "https://jlndk.github.io/8puzzle-ai",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jlndk/8puzzle-ai.git"
+    },
+    "devDependencies": {
+        "@types/p5": "^0.9.0",
+        "parcel-bundler": "^1.12.4",
+        "prettier": "^2.2.1",
+        "typescript": "^3.8.3"
+    },
+    "dependencies": {
+        "comlink": "^4.3.0",
+        "p5": "^1.2.0",
+        "ts-priority-queue": "^0.1.1"
+    },
+    "browserslist": [
+        "last 1 Chrome version"
+    ]
+}
