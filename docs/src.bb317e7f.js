@@ -1178,6 +1178,7 @@ class EightPuzzle {
     this.p = p;
     this.aiType = aiType;
     this.p.createCanvas(600, 600);
+    this.createResetButton();
     this.p.background(0);
     this.drawStatusCenter('Initializing...');
     const {
@@ -1194,8 +1195,26 @@ class EightPuzzle {
       this.errorMsg = err;
       this.moves = [];
       this.p.noLoop();
-      throw err;
+      console.error(err);
     });
+  }
+
+  reset() {
+    this.p.background(0);
+    this.drawStatusCenter('Resetting...');
+    this.moves = undefined;
+    this.currentMove = 0;
+    this.done = false;
+    this.errorMsg = undefined;
+    this.status = undefined;
+    const {
+      grid,
+      desiredState
+    } = Grid_1.Grid.generate(this.size);
+    this.grid = grid;
+    this.desiredState = desiredState;
+    this.init();
+    this.p.loop();
   }
 
   putAIOnMainThread() {
@@ -1217,7 +1236,7 @@ class EightPuzzle {
   }
 
   async calculateMovesWithWorker() {
-    const worker = new Worker("worker.3aef24d1.js");
+    const worker = new Worker("worker.e38f6236.js");
 
     worker.onmessage = ({
       data
@@ -1229,6 +1248,16 @@ class EightPuzzle {
 
     const action = comlink_1.wrap(worker);
     this.moves = await action(this.aiType, this.size, this.grid.tiles, this.grid.freeTile, this.desiredState);
+    worker.terminate();
+  }
+
+  createResetButton() {
+    const button = this.p.createButton('reset');
+    button.addClass('canvasButton'); // button.size(50, 30);
+
+    const buttonSize = button.size();
+    button.position(this.p.width - buttonSize.width - 10, this.p.height - buttonSize.height - 10);
+    button.mousePressed(() => this.reset());
   }
 
   update() {
@@ -1330,7 +1359,7 @@ class EightPuzzle {
 }
 
 exports.default = EightPuzzle;
-},{"./Grid":"aZlb","comlink":"zxCA","../lib/util":"V9Vx","../sketch":"jtWJ","./../ai/worker.ts":[["worker.3aef24d1.js","Tudj"],"worker.3aef24d1.js.map","Tudj"]}],"jtWJ":[function(require,module,exports) {
+},{"./Grid":"aZlb","comlink":"zxCA","../lib/util":"V9Vx","../sketch":"jtWJ","./../ai/worker.ts":[["worker.e38f6236.js","Tudj"],"worker.e38f6236.js.map","Tudj"]}],"jtWJ":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -22415,4 +22444,4 @@ new p5_1.default(p => {
   sketch_1.makeGame(p);
 });
 },{"./sketch":"jtWJ","p5":"SOQY"}]},{},["B6dB"], null)
-//# sourceMappingURL=src.bd362c8f.js.map
+//# sourceMappingURL=src.bb317e7f.js.map
