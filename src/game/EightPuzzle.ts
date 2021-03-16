@@ -38,6 +38,8 @@ export default class EightPuzzle {
 
         this.p.createCanvas(600, 600);
 
+        this.createResetButton();
+
         this.p.background(0);
         this.drawStatusCenter('Initializing...');
 
@@ -54,8 +56,27 @@ export default class EightPuzzle {
             this.errorMsg = err;
             this.moves = [];
             this.p.noLoop();
-            throw err;
+            console.error(err);
         });
+    }
+
+    reset(): void {
+        this.p.background(0);
+        this.drawStatusCenter('Resetting...');
+
+        this.moves = undefined;
+        this.currentMove = 0;
+        this.done = false;
+        this.errorMsg = undefined;
+        this.status = undefined;
+
+        const { grid, desiredState } = Grid.generate(this.size);
+
+        this.grid = grid;
+        this.desiredState = desiredState;
+
+        this.init();
+        this.p.loop();
     }
 
     putAIOnMainThread(): void {
@@ -86,6 +107,19 @@ export default class EightPuzzle {
         const action = wrap<typeof calculateMoves>(worker);
 
         this.moves = await action(this.aiType, this.size, this.grid.tiles, this.grid.freeTile, this.desiredState);
+
+        worker.terminate();
+    }
+
+    private createResetButton(): void {
+        const button = this.p.createButton('reset');
+        button.addClass('canvasButton');
+        // button.size(50, 30);
+
+        const buttonSize = button.size() as { width: number; height: number };
+
+        button.position(this.p.width - buttonSize.width - 10, this.p.height - buttonSize.height - 10);
+        button.mousePressed(() => this.reset());
     }
 
     update() {
